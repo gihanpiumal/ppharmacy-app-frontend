@@ -1,0 +1,15 @@
+@import "../../../index.scss";
+
+.form-title {
+  background: color(primary);
+  padding: 2px;
+  margin-bottom: 20px;
+  padding: 6px 30px;
+}
+.form-title h3 {
+  color: color(white-c) !important;
+  margin: 0;
+}
+.form-header {
+  border-left: 4px #0b2e93 solid;
+}
