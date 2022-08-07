@@ -1,5 +1,4 @@
 import { Route, Redirect } from "react-router-dom";
-import { RoutesConstant } from "../assets/constants";
 
 const PrivateRoutes = ({ exact, key, path, component: Component }) => {
   return (
