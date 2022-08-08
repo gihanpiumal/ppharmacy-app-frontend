@@ -1,1 +1,0 @@
-# ppharmacy-app-frontend
