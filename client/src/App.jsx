@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Switch, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { appRoutes } from "./navigation";
 import { RoutesConstant } from "./assets/constants";
-import {NavBar} from "./components";
+import { NavBar } from "./components";
+import { getUsers} from "./services/actions/users";
+import { getUserRoles} from "./services/actions/userRoals";
 
 const App = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+    dispatch(getUserRoles());
+  }, [dispatch]);
+
   let routes = (
     <Switch>
       {appRoutes()}, <Redirect to={RoutesConstant.home} />
@@ -13,7 +22,7 @@ const App = (props) => {
 
   return (
     <div>
-      <NavBar/>
+      <NavBar />
       <BrowserRouter>{routes}</BrowserRouter>
     </div>
   );
