@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { appRoutes } from "./navigation";
 import { RoutesConstant } from "./assets/constants";
 import { NavBar } from "./components";
-import { getUsers} from "./services/actions/users";
-import { getUserRoles} from "./services/actions/userRoals";
+import { getUsers , getUserRoles} from "./services/actions/users";
+// import { getUserRoles} from "./services/actions/userRoals";
 
 const App = (props) => {
   const dispatch = useDispatch();
