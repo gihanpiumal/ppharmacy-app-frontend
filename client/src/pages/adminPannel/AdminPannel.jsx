@@ -15,7 +15,7 @@ const AdminPannel = () => {
   const categories = useSelector((state) => state.CATEGORIES);
   const medicines = useSelector((state) => state.MEDICINES);
   const purchase = useSelector((state) => state.PURCHASE);
-  const AdminState =useSelector((state) => state.ADMIN_STATE)
+  const AdminState ="Component"+useSelector((state) => state.ADMIN_STATE)
   console.log(AdminState);
   return (
     <div className="adminpannel-wrapper">
@@ -23,7 +23,8 @@ const AdminPannel = () => {
         <Col span={4}>
           <AdminMenu />
         </Col>
-        <Col span={20}>{AdminState == "Categories" && <Categories />}</Col>
+        <AdminState/>
+        {/* <Col span={20}>{AdminState == "Categories" && <Categories />}</Col> */}
       </Row>
     </div>
   );
