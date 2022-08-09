@@ -1,5 +1,12 @@
 import React, { Component } from "react";
+import { BrowserRouter, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import { Col, Row } from "antd";
+
+import { AdminMenu } from "../../components/functionalComponents";
+import { Categories } from "../../components";
+import "./AdminPannel.scss";
 
 const AdminPannel = () => {
   const store = useSelector((state) => state.STORE);
@@ -8,13 +15,18 @@ const AdminPannel = () => {
   const categories = useSelector((state) => state.CATEGORIES);
   const medicines = useSelector((state) => state.MEDICINES);
   const purchase = useSelector((state) => state.PURCHASE);
-  console.log(store);
-  console.log(users);
-  console.log(userRoalse);
-  console.log(categories);
-  console.log(medicines);
-  console.log(purchase);
-  return <div>AdminPannel</div>;
+  const AdminState =useSelector((state) => state.ADMIN_STATE)
+  console.log(AdminState);
+  return (
+    <div className="adminpannel-wrapper">
+      <Row>
+        <Col span={4}>
+          <AdminMenu />
+        </Col>
+        <Col span={20}>{AdminState == "Categories" && <Categories />}</Col>
+      </Row>
+    </div>
+  );
 };
 
 export default AdminPannel;

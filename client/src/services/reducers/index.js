@@ -6,6 +6,7 @@ import categories from "./categoriesReducer";
 import medicines from "./medicineReducer";
 import purchase from "./purchaceReducer";
 import store from "./storeReducer";
+import adminState from "./adminDahboard";
 
 export default combineReducers({
   USERS: users,
@@ -14,4 +15,5 @@ export default combineReducers({
   MEDICINES: medicines,
   PURCHASE: purchase,
   STORE: store,
+  ADMIN_STATE: adminState
 });
