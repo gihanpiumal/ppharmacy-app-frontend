@@ -22,8 +22,8 @@ const App = (props) => {
 
   return (
     <div>
-      <NavBar />
-      <BrowserRouter>{routes}</BrowserRouter>
+      
+      <BrowserRouter><NavBar />{routes}</BrowserRouter>
     </div>
   );
 };

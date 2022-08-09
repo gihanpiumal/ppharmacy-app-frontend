@@ -1,10 +1,9 @@
-export default (state = { users: []}, action) => {
+export const users =(state = { users: []}, action) => {
   switch (action.type) {
     case "FETCH_AL":
-      return action.payload;
-    case "CREATE":
-      return action.payload;
+      return {users:action.payload};
     default:
       return state;
   }
 };
+
