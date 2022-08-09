@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
 
-import users from "./users";
-import userRoals from "./userRoal";
+import {users} from "./users";
+import { userRole } from "./userRoles";
 
 export default combineReducers({
-  users
+  us:users,
+  usr:userRole
 });
