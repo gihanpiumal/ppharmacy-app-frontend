@@ -8,4 +8,4 @@ export const postData = (url, obj) => axios.post(baseURL + url, obj);
 
 export const putData = (url, obj) => axios.put(baseURL + url, obj);
 
-export const deteteData = (url) => axios.put(baseURL + url);
+export const deleteData = (url) => axios.put(baseURL + url);
