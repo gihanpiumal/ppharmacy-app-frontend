@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import reducers from "./reducers";
+import reducers from "./services/reducers/index";
 import "antd/dist/antd.min.css";
 import App from "./App";
 
@@ -16,6 +16,7 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
