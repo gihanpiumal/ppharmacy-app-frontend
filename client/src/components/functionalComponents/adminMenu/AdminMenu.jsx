@@ -26,13 +26,13 @@ const AdminMenu = () => {
       <Menu.Item key={"categories"} onClick={() => changeStatus("Categories")}>
         Categories
       </Menu.Item>
-      <Menu.Item key={"medicines"}>Medicines</Menu.Item>
+      <Menu.Item key={"medicines"} onClick={() => changeStatus("Medicines")}>Medicines</Menu.Item>
       <Menu.SubMenu key={"users"} title="Users">
-        <Menu.Item key={"user_details"}>User Details</Menu.Item>
-        <Menu.Item key={"user_roals"}>User Roals</Menu.Item>
+        <Menu.Item key={"user_details"} onClick={() => changeStatus("User Details")}>User Details</Menu.Item>
+        <Menu.Item key={"user_roals"} onClick={() => changeStatus("User Roals")}>User Roals</Menu.Item>
       </Menu.SubMenu>
-      <Menu.Item key={"store"}>Store</Menu.Item>
-      <Menu.Item key={"purchase"}>Purchase</Menu.Item>
+      <Menu.Item key={"store"} onClick={() => changeStatus("Store")}>Store</Menu.Item>
+      <Menu.Item key={"purchase"} onClick={() => changeStatus("Purchase")}>Purchase</Menu.Item>
     </Menu>
   );
 };
