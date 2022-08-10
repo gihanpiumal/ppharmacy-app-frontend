@@ -5,7 +5,15 @@ import { useSelector } from "react-redux";
 import { Col, Row } from "antd";
 
 import { AdminMenu } from "../../components/functionalComponents";
-import { Categories } from "../../components";
+import {
+  Categories,
+  Medicines,
+  Purchase,
+  Store,
+  UserRoals,
+  Users,
+  Dashboard,
+} from "../../components";
 import "./AdminPannel.scss";
 
 const AdminPannel = () => {
@@ -15,16 +23,36 @@ const AdminPannel = () => {
   const categories = useSelector((state) => state.CATEGORIES);
   const medicines = useSelector((state) => state.MEDICINES);
   const purchase = useSelector((state) => state.PURCHASE);
-  const AdminState ="Component"+useSelector((state) => state.ADMIN_STATE)
-  console.log(AdminState);
+  const AdminState = useSelector((state) => state.ADMIN_STATE);
+
+  const renderSwitch = () => {
+    switch (AdminState) {
+      case "Medicines":
+        return <Medicines />;
+      case "Categories":
+        return <Categories />;
+      case "User Details":
+        return <Users />;
+      case "User Roals":
+        return <UserRoals />;
+      case "Store":
+        return <Store />;
+      case "Purchase":
+        return <Purchase />;
+      case "Dashboard":
+        return <Dashboard />;
+      default:
+        return "foo";
+    }
+  };
+
   return (
     <div className="adminpannel-wrapper">
       <Row>
         <Col span={4}>
           <AdminMenu />
         </Col>
-        <AdminState/>
-        {/* <Col span={20}>{AdminState == "Categories" && <Categories />}</Col> */}
+        <Col span={20}>{renderSwitch()}</Col>
       </Row>
     </div>
   );

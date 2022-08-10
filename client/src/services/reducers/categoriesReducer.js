@@ -8,10 +8,10 @@ export default (categories = [], action) => {
       return [...categories, action.payload];
     case actionTypes.update_category:
       return categories.map((category) =>
-        category._id === action.payload._id ? action.payload : category
+      category._id === action.payload._id ? action.payload : category
       );
     case actionTypes.delete_category:
-      return categories.filter((category) => category._id !== action.payload);
+      return categories.filter((category) => category._id != action.payload);
     default:
       return categories;
   }
