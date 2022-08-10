@@ -145,6 +145,9 @@ const Categories = () => {
 
   return (
     <div className="category-container">
+      <div className="category-title">
+        <h2>CATEGORY DETAILS</h2>
+      </div>
       <div className="category-header">
         <div className="search-bar">
           <Row>
@@ -152,6 +155,7 @@ const Categories = () => {
               <Button
                 className="add-btn"
                 type="primary"
+                size="large"
                 icon={<PlusOutlined />}
                 onClick={addNew}
               >
@@ -161,8 +165,7 @@ const Categories = () => {
             <Col span={16}>
               <Input
                 placeholder="Search Categoris"
-                // onSearch={onSearch}
-                // style={{ width: 200 }}
+                size="large"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
               />
@@ -170,6 +173,7 @@ const Categories = () => {
             <Col span={4}>
               <Button
                 className="search-btn"
+                size="large"
                 type="primary"
                 onClick={searchCategory}
                 icon={<SearchOutlined />}
@@ -191,13 +195,25 @@ const Categories = () => {
           onCancel={handleCancel}
           footer={null}
         >
-          <h2>Are you sure want to delete this category??</h2>
-          <Button className="search-btn" type="primary" onClick={handleDelete}>
-            Yes
-          </Button>
-          <Button className="search-btn" type="primary" onClick={handleCancel}>
-            No
-          </Button>
+          <div className={"modal-container"}>
+            <h3>Are you sure want to delete this category??</h3>
+            <div className="modal-btns">
+              <Button
+                className="save-btn"
+                type="primary"
+                onClick={handleDelete}
+              >
+                Yes
+              </Button>
+              <Button
+                className="cancel-btn"
+                type="primary"
+                onClick={handleCancel}
+              >
+                No
+              </Button>
+            </div>
+          </div>
         </Modal>
 
         {/* edit modal */}
@@ -207,32 +223,42 @@ const Categories = () => {
           onCancel={handleCancel}
           footer={null}
         >
-          <Input
-            placeholder="Category Name"
-            value={updateCategory.categoryName}
-            onChange={(e) =>
-              setUpdateCategory({
-                ...updateCategory,
-                categoryName: e.target.value,
-              })
-            }
-          />
-          <Input
-            placeholder="Description"
-            value={updateCategory.Description}
-            onChange={(e) =>
-              setUpdateCategory({
-                ...updateCategory,
-                Description: e.target.value,
-              })
-            }
-          />
-          <Button className="search-btn" type="primary" onClick={handleEdit}>
-            Save
-          </Button>
-          <Button className="search-btn" type="primary" onClick={handleCancel}>
-            Cancel
-          </Button>
+          <div className={"modal-container"}>
+            <Input
+              placeholder="Category Name"
+              value={updateCategory.categoryName}
+              className="modal-inputs"
+              onChange={(e) =>
+                setUpdateCategory({
+                  ...updateCategory,
+                  categoryName: e.target.value,
+                })
+              }
+            />
+            <Input
+              placeholder="Description"
+              value={updateCategory.Description}
+              className="modal-inputs"
+              onChange={(e) =>
+                setUpdateCategory({
+                  ...updateCategory,
+                  Description: e.target.value,
+                })
+              }
+            />
+            <div className="modal-btns">
+              <Button className="save-btn" type="primary" onClick={handleEdit}>
+                Save
+              </Button>
+              <Button
+                className="cancel-btn"
+                type="primary"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
         </Modal>
 
         {/* Add modal */}
@@ -242,32 +268,44 @@ const Categories = () => {
           onCancel={handleCancel}
           footer={null}
         >
-          <Input
-            placeholder="Category Name"
-            value={updateCategory.categoryName}
-            onChange={(e) =>
-              setUpdateCategory({
-                ...updateCategory,
-                categoryName: e.target.value,
-              })
-            }
-          />
-          <Input
-            placeholder="Description"
-            value={updateCategory.Description}
-            onChange={(e) =>
-              setUpdateCategory({
-                ...updateCategory,
-                Description: e.target.value,
-              })
-            }
-          />
-          <Button className="search-btn" type="primary" onClick={handleAdd}>
-            Save
-          </Button>
-          <Button className="search-btn" type="primary" onClick={handleCancel}>
-            Cancel
-          </Button>
+          <div className={"modal-container"}>
+            <div>
+              <Input
+                placeholder="Category Name"
+                value={updateCategory.categoryName}
+                className="modal-inputs"
+                onChange={(e) =>
+                  setUpdateCategory({
+                    ...updateCategory,
+                    categoryName: e.target.value,
+                  })
+                }
+              />
+              <Input
+                placeholder="Description"
+                value={updateCategory.Description}
+                className="modal-inputs"
+                onChange={(e) =>
+                  setUpdateCategory({
+                    ...updateCategory,
+                    Description: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="modal-btns">
+              <Button className="save-btn" type="primary" onClick={handleAdd}>
+                Save
+              </Button>
+              <Button
+                className="cancel-btn"
+                type="primary"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
         </Modal>
       </div>
     </div>

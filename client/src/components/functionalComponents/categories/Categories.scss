@@ -1,0 +1,49 @@
+.category-title {
+  margin-left: 20px;
+}
+.category-title h2 {
+  text-align: center;
+}
+
+.category-header {
+  padding: 20px;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.add-btn {
+  float: right;
+  margin-right: 50%;
+}
+
+
+.category-body {
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid;
+  border-radius: 10px;
+}
+
+.modal-container{
+    overflow: auto;
+    padding: 20px;
+}
+
+.modal-inputs{
+    margin-bottom: 10px;
+}
+
+.save-btn{
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.cancel-btn{
+    border-radius: 5px;
+}
+
+.modal-btns{
+    margin-top: 10px;
+    float: right;
+}
