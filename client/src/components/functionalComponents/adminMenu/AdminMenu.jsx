@@ -53,16 +53,16 @@ const AdminMenu = () => {
     switch (val) {
       case "Categories":
         return dispatch(getCategories(objCategory));
-      case "Medicines":
-        return dispatch(getCategories(objMedicine));
-      case "User Details":
-        return dispatch(getCategories(objUsers));
-      case "User Roals":
-        return dispatch(getCategories(objUserRoal));
-      case "Store":
-        return dispatch(getCategories(objStore));
-      case "Purchase":
-        return dispatch(getCategories(objPurchase));
+      // case "Medicines":
+      //   return dispatch(getCategories(objMedicine));
+      // case "User Details":
+      //   return dispatch(getCategories(objUsers));
+      // case "User Roals":
+      //   return dispatch(getCategories(objUserRoal));
+      // case "Store":
+      //   return dispatch(getCategories(objStore));
+      // case "Purchase":
+      //   return dispatch(getCategories(objPurchase));
       default:
         break;
     }

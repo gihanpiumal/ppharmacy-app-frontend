@@ -5,6 +5,7 @@ export default (medicines = [], action) => {
     case actionTypes.get_all_medicines:
       return action.payload;
     case actionTypes.add_medicine:
+      // console.log(action.payload.categoryName);
       return [...medicines, action.payload];
     case actionTypes.update_medicine:
       return medicines.map((medicine) =>
