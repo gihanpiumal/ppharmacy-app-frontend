@@ -15,11 +15,6 @@ import {
   updateMedicines,
   addMedicines,
 } from "../../../services/actions/medicineAction";
-import {
-  deleteCategories,
-  updateCategories,
-  addCategories,
-} from "../../../services/actions/categoriesAction";
 import { $Space, $Input, $TextArea } from "../../antd";
 
 import "./Medicines.scss";
@@ -33,11 +28,17 @@ const Medicines = () => {
     name: "",
     description: "",
     doctrorApproval: null,
-    price: "",
   });
   const [showDeleteModel, setShowDeleteModel] = useState(false);
   const [showEditModel, setShowEditModel] = useState(false);
   const [showAddNewModel, setShowAddNewModel] = useState(false);
+
+  let categories = [];
+  let medicines = [];
+  let store = [];
+  medicines = useSelector((state) => state.MEDICINES);
+  categories = useSelector((state) => state.CATEGORIES);
+  store = useSelector((state) => state.STORE);
 
   // coloms of the table
   const showActions = (record) => {
@@ -57,15 +58,37 @@ const Medicines = () => {
   };
 
   const caterory_Name = (dataIndex) => {
-    let category;
-    dataIndex.map((val) => {
-      category = val.categoryName;
+    let category = "";
+    categories.map((val) => {
+      if (val._id == dataIndex) {
+        category = val.categoryName;
+      }
     });
     return category;
   };
 
+  const medicine_Price = (dataIndex) => {
+    let Price = "";
+    store.map((val) => {
+      if (val.medicineId == dataIndex) {
+        Price = val.price;
+      }
+    });
+    return Price;
+  };
+
+  const medicine_Quantity = (dataIndex) => {
+    let Quantity = "Not Available";
+    store.map((val) => {
+      if (val.medicineId == dataIndex) {
+        Quantity = val.quantity;
+      }
+    });
+    return Quantity;
+  };
+
   const doctor_approval = (dataIndex) => {
-    return dataIndex==true ? "Yes" : "No";
+    return dataIndex == true ? "Yes" : "No";
   };
   const columns = [
     {
@@ -74,9 +97,9 @@ const Medicines = () => {
       key: "categoryName",
     },
     {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
+      title: "Category Name",
+      dataIndex: "categoryId",
+      key: "categoryId",
       render: (dataIndex, record) => caterory_Name(dataIndex),
     },
     {
@@ -92,8 +115,15 @@ const Medicines = () => {
     },
     {
       title: "Price",
-      dataIndex: "price",
+      dataIndex: "_id",
       key: "price",
+      render: (dataIndex, record) => medicine_Price(dataIndex),
+    },
+    {
+      title: "Quantity",
+      dataIndex: "_id",
+      key: "quantity",
+      render: (dataIndex, record) => medicine_Quantity(dataIndex),
     },
     {
       title: "Action",
@@ -105,7 +135,7 @@ const Medicines = () => {
 
   ///////////////// search functions //////////////////////////
   const obj = {
-    name: "",
+    name: searchText,
     doctrorApproval: null,
     categoryId: "",
   };
@@ -113,12 +143,6 @@ const Medicines = () => {
   const searchCategory = () => {
     dispatch(getMedicines(obj));
   };
-
-  let categories = [];
-  let medicines = [];
-  medicines = useSelector((state) => state.MEDICINES);
-  categories = useSelector((state) => state.CATEGORIES);
-  console.log(medicines);
 
   ///////////////// search functions //////////////////////////
 
@@ -154,7 +178,6 @@ const Medicines = () => {
       name: "",
       description: "",
       doctrorApproval: null,
-      price: "",
     });
   };
 
@@ -170,18 +193,20 @@ const Medicines = () => {
   };
 
   const editModel = (record) => {
-    // setUpdateCategory({
-    //   ...updateCategory,
-    //   categoryName: record.categoryName,
-    //   Description: record.Description,
-    // });
+    setUpdateMedicine({
+      ...updateMedicine,
+      categoryId: record.categoryId,
+      name: record.name,
+      description: record.description,
+      doctrorApproval: record.doctrorApproval,
+    });
     setShowEditModel(true);
     setRecordId(record._id);
   };
 
   const handleEdit = () => {
     // console.log(updateCategory);
-    // dispatch(updateCategories(recordId, updateCategory));
+    dispatch(updateMedicines(recordId, updateMedicine));
     handleCancel();
   };
 
@@ -191,7 +216,6 @@ const Medicines = () => {
 
   const handleAdd = () => {
     dispatch(addMedicines(updateMedicine));
-    console.log(updateMedicine);
     handleCancel();
   };
 
@@ -216,7 +240,7 @@ const Medicines = () => {
             </Col>
             <Col span={16}>
               <Input
-                placeholder="Search Categoris"
+                placeholder="Search Medicines"
                 size="large"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
@@ -276,28 +300,94 @@ const Medicines = () => {
           footer={null}
         >
           <div className={"modal-container"}>
-            {/* <Input
-              placeholder="Category Name"
-              value={updateCategory.categoryName}
-              className="modal-inputs"
-              onChange={(e) =>
-                setUpdateCategory({
-                  ...updateCategory,
-                  categoryName: e.target.value,
-                })
-              }
-            />
-            <Input
-              placeholder="Description"
-              value={updateCategory.Description}
-              className="modal-inputs"
-              onChange={(e) =>
-                setUpdateCategory({
-                  ...updateCategory,
-                  Description: e.target.value,
-                })
-              }
-            /> */}
+            <div>
+              <Row>
+                <Col>
+                  <p>Category :</p>
+                </Col>
+                <Col>
+                  <Select
+                    defaultValue=""
+                    className="modal-inputs"
+                    value={updateMedicine.categoryId}
+                    style={{
+                      width: 300,
+                      marginBottom: "20px",
+                      marginLeft: "20px",
+                    }}
+                    onChange={(value) =>
+                      setUpdateMedicine({
+                        ...updateMedicine,
+                        categoryId: value,
+                      })
+                    }
+                  >
+                    {categories.map((prop, index) => (
+                      <Select.Option key={index} value={prop._id}>
+                        {prop.categoryName}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col>
+                  <p>Medicine Name :</p>
+                </Col>
+                <Col>
+                  <Input
+                    value={updateMedicine.name}
+                    style={{ marginLeft: "20px", width: "250px" }}
+                    className="modal-inputs"
+                    onChange={(e) =>
+                      setUpdateMedicine({
+                        ...updateMedicine,
+                        name: e.target.value,
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p>Description :</p>
+                </Col>
+                <Col>
+                  <Input
+                    style={{ marginLeft: "20px", width: "300px" }}
+                    value={updateMedicine.description}
+                    className="modal-inputs"
+                    onChange={(e) =>
+                      setUpdateMedicine({
+                        ...updateMedicine,
+                        description: e.target.value,
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p>Doctor Approval :</p>
+                </Col>
+                <Col>
+                  <Radio.Group
+                    style={{ marginLeft: "20px" }}
+                    onChange={(e) =>
+                      setUpdateMedicine({
+                        ...updateMedicine,
+                        doctrorApproval: e.target.value,
+                      })
+                    }
+                    value={updateMedicine.doctrorApproval}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </Col>
+              </Row>
+            </div>
             <div className="modal-btns">
               <Button className="save-btn" type="primary" onClick={handleEdit}>
                 Save
@@ -322,64 +412,79 @@ const Medicines = () => {
         >
           <div className={"modal-container"}>
             <div>
-              <Select
-                defaultValue=""
-                className="modal-inputs"
-                value={updateMedicine.categoryId}
-                style={{ width: 460, marginBottom: "20px" }}
-                placeholder="Category Name"
-                onChange={(value) =>
-                  setUpdateMedicine({
-                    ...updateMedicine,
-                    categoryId: value,
-                  })
-                }
-              >
-                {categories.map((prop, index) => (
-                  <Select.Option key={index} value={prop._id}>
-                    {prop.categoryName}
-                  </Select.Option>
-                ))}
-              </Select>
-              <Input
-                placeholder="Medicine Name"
-                value={updateMedicine.name}
-                className="modal-inputs"
-                onChange={(e) =>
-                  setUpdateMedicine({
-                    ...updateMedicine,
-                    name: e.target.value,
-                  })
-                }
-              />
-              <Input
-                placeholder="Description"
-                value={updateMedicine.description}
-                className="modal-inputs"
-                onChange={(e) =>
-                  setUpdateMedicine({
-                    ...updateMedicine,
-                    description: e.target.value,
-                  })
-                }
-              />
-              <Input
-                placeholder="Price"
-                value={updateMedicine.price}
-                className="modal-inputs"
-                onChange={(e) =>
-                  setUpdateMedicine({
-                    ...updateMedicine,
-                    price: e.target.value,
-                  })
-                }
-              />
+              <Row>
+                <Col>
+                  <p>Category :</p>
+                </Col>
+                <Col>
+                  <Select
+                    defaultValue=""
+                    className="modal-inputs"
+                    value={updateMedicine.categoryId}
+                    style={{
+                      width: 300,
+                      marginBottom: "20px",
+                      marginLeft: "20px",
+                    }}
+                    onChange={(value) =>
+                      setUpdateMedicine({
+                        ...updateMedicine,
+                        categoryId: value,
+                      })
+                    }
+                  >
+                    {categories.map((prop, index) => (
+                      <Select.Option key={index} value={prop._id}>
+                        {prop.categoryName}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col>
+                  <p>Medicine Name :</p>
+                </Col>
+                <Col>
+                  <Input
+                    value={updateMedicine.name}
+                    style={{ marginLeft: "20px", width: "250px" }}
+                    className="modal-inputs"
+                    onChange={(e) =>
+                      setUpdateMedicine({
+                        ...updateMedicine,
+                        name: e.target.value,
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p>Description :</p>
+                </Col>
+                <Col>
+                  <Input
+                    style={{ marginLeft: "20px", width: "300px" }}
+                    value={updateMedicine.description}
+                    className="modal-inputs"
+                    onChange={(e) =>
+                      setUpdateMedicine({
+                        ...updateMedicine,
+                        description: e.target.value,
+                      })
+                    }
+                  />
+                </Col>
+              </Row>
               <Row>
                 <Col>
                   <p>Doctor Approval :</p>
                 </Col>
                 <Col>
                   <Radio.Group
+                    style={{ marginLeft: "20px" }}
                     onChange={(e) =>
                       setUpdateMedicine({
                         ...updateMedicine,

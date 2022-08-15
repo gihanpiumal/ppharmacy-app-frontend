@@ -10,7 +10,7 @@ export default (stores = [], action) => {
       return stores.map((store) =>
         store._id === action.payload._id ? action.payload : store
       );
-    case actionTypes.delete_user:
+    case actionTypes.delete_from_store:
       return stores.filter((store) => store._id !== action.payload);
     default:
       return stores;
